@@ -21,9 +21,15 @@
       if($mypassword == $active) {
          $_SESSION['login_user'] = $myusername;
          header('Location: '.$newURL);
-      }else {
-         $error = "<script>alert('Your Login Name or Password is invalid')<script>";
-         $_COOKIE['error'] = $error;
+      // }elseif ($row['fname'] == "") {
+      //    $error = "No such username";
+      //    $_SESSION['error'] = $error;
+      //    $page_referrer=$_SERVER['HTTP_REFERER'];
+      //    header('Location: '.$page_referrer);
+      // }
+      }else{
+         $error = "Your Login Name or Password is invalid";
+         $_SESSION['error'] = $error;
          $page_referrer=$_SERVER['HTTP_REFERER'];
          header('Location: '.$page_referrer);
       }

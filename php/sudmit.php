@@ -14,6 +14,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "db1";
+$page = "login.php";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -24,6 +25,7 @@ echo "Connected succsessfuly";
 $sql= "INSERT INTO user (`fname`, `lname`, `password`) VALUES ('$x', '$y', '$z')";
 
 if ($conn->query($sql)==TRUE) {
+	header('Location: '.$page);
 	echo "<br> New record made succsessfuly";
 } else {
 	echo "Error" . $sql . "<br>" . $conn->error;

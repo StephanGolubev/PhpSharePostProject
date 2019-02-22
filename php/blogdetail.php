@@ -77,6 +77,7 @@
 	echo "<h1 class='mt-5'>Hello " . $_SESSION["login_user"] . ".</h1><br><h4> Here you can see all the blog were writen:</h4>";
  ?>
   </div>
+
   <div class="container">
       <div class="row">
         <div class="col-2" id="main">
@@ -91,11 +92,9 @@
         <div class="col-10">
           <?php 
  				$url = $_SERVER['REQUEST_URI']; 
- 				$get = (parse_url($url));
- 				$var = $get['query'];
-				parse_str($var, $output);
-				$num = $output['id'];
+        $num = $_GET['id'];
         $_SESSION['post_id'] = $num;
+        
 
 				$dt = "SELECT * FROM `blogs` WHERE id=$num";
 				$result = mysqli_query($db,$dt) or die( mysqli_error($db));
@@ -103,7 +102,8 @@
 		  ?> 	
 		  <?php 
         	while ($row = mysqli_fetch_array($result)) {
-          		echo "<div id='rows'><h4>{$row['title']}</h4><div id='user'>Creator: {$row['user']}</div><p id='user'>Created: {$row['created']}</p><br>{$row['body']}<br><div><hr>";
+            $link = "http://localhost/php/php/userdetail.php?id=".$row['id'];
+          		echo "<div id='rows'><h4>{$row['title']}</h4><div id='user'>Creator: <a href=".$link.">{$row['user']}</a></div><p id='user'>Created: {$row['created']}</p><br>{$row['body']}<br><div><hr>";
         }
         
 		   ?>
@@ -143,7 +143,7 @@
         </div>
         </div>
         
-      </div>
+      </div><a href="$link"></a>
 
   </div>
   

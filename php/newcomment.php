@@ -21,6 +21,5 @@
 		$page_referrer=$_SERVER['HTTP_REFERER'];
         header('Location: '.$page_referrer);
 	}
-    $result =mysqli_query($db,$sql)
 
  ?>
