@@ -10,8 +10,9 @@
     $mytitle = mysqli_real_escape_string($db, $_POST['title']);
     $mytext = mysqli_real_escape_string($db, $_POST['text']);
     $myusername = mysqli_real_escape_string($db, $creater);
+    $id = $_SESSION['user_id'];
       
-    $sql= "INSERT INTO blogs (`title`, `body`, `user`) VALUES ('$mytitle', '$mytext', '$myusername')";
+    $sql= "INSERT INTO blogs (`title`, `body`, `user`, `user_id`) VALUES ('$mytitle', '$mytext', '$myusername', '$id')";
     if ($db->query($sql)==TRUE) {
 		$_SESSION['new_blog_title'] = $_POST['title'];
         header('Location: '.$newURL);

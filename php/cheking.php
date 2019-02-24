@@ -15,11 +15,14 @@
       $result = mysqli_query($db,$sql) or die( mysqli_error($db));
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $active = $row['password'];
+      $id = $row['id'];
 
       // If result matched $myusername and $mypassword, table row must be 1 row
 		
       if($mypassword == $active) {
          $_SESSION['login_user'] = $myusername;
+         $_SESSION['user_id'] = $id;
+
          header('Location: '.$newURL);
       // }elseif ($row['fname'] == "") {
       //    $error = "No such username";

@@ -80,7 +80,7 @@
 
   <div class="container">
       <div class="row">
-        <div class="col-2" id="main">
+        <div class="col-lg-2" id="main">
           <?php 
           if (!isset($_SESSION['new_blog_title']) || $_SESSION['new_blog_title'] == '') {
             echo "<h6>You have not created any post today!</h6>";
@@ -102,7 +102,7 @@
 		  ?> 	
 		  <?php 
         	while ($row = mysqli_fetch_array($result)) {
-            $link = "http://localhost/php/php/userdetail.php?id=".$row['id'];
+            $link = "http://localhost/php/php/userdetail.php?id=".$row['user_id'];
           		echo "<div id='rows'><h4>{$row['title']}</h4><div id='user'>Creator: <a href=".$link.">{$row['user']}</a></div><p id='user'>Created: {$row['created']}</p><br>{$row['body']}<br><div><hr>";
         }
         

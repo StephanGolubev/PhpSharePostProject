@@ -62,12 +62,11 @@
 
   <div class="container">
       <div class="row">
-        <div class="col-8"><br><br><br><br><br><br>
+        <div class="col-lg-8 col-md-12"><br><br><br><br><br><br>
            <?php 
         $newURL = "dashboard.php";
         $creater = $_SESSION["login_user"];
         $user = $_GET['id'];
-        echo $user;
         $dt = "SELECT * FROM `user` WHERE id=$user";
         // Order by DESC-less or ASC-bigger limit-limits the output!
         $result = mysqli_query($db,$dt) or die( mysqli_error($db));
@@ -75,7 +74,7 @@
         <?php
         while ($row = mysqli_fetch_array($result)) {
           $get = array("id"=>"{$row['id']}");
-          echo "<div id='rows'><h4><a href='#'>{$row['fname']}</a></h4><div id='user'>Creator: {$row['user']}</div><p id='user'>Created: {$row['created']}</p><br>{$row['body']}<br><div><hr>";
+          echo "<div id='rows'><h4><a href='#'>{$row['fname']}</a></h4>Created: {$row['created']}</p><br>{$row['lname']}<br><div><hr>";
         }
         ?>
         </div>

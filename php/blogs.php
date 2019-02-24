@@ -76,7 +76,7 @@
   </div>
   <div class="container">
       <div class="row">
-        <div class="col-2" id="main">
+        <div class="col-lg-2" id="main">
           <?php 
           if (!isset($_SESSION['new_blog_title']) || $_SESSION['new_blog_title'] == '') {
             echo "<h6>You have not created any post yet!</h6>";
@@ -84,8 +84,8 @@
             echo "<h6>You have just created new post :<br><font size='5' color='red' face='Arial'>". $_SESSION['new_blog_title']."</font></h6>";
           }
            ?>
-         </div> 
-        <div class="col-10">
+         </div> <hr>
+        <div class="col-lg-10 col-md-12">
           <?php 
    			$newURL = "dashboard.php";
    			$creater = $_SESSION["login_user"];
