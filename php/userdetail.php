@@ -7,6 +7,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/second.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
     <style>
@@ -60,7 +61,7 @@
 </header>
 
 
-  <div class="container">
+  <div class="container col-lg-8 col-md-12">
       <div class="row">
         <div class="col-lg-8 col-md-12"><br><br><br><br><br><br>
            <?php 
@@ -68,13 +69,39 @@
         $creater = $_SESSION["login_user"];
         $user = $_GET['id'];
         $dt = "SELECT * FROM `user` WHERE id=$user";
+        $dt1 = "SELECT * FROM `comment` WHERE user_id=$user";
+        $dt2 = "SELECT * FROM `blogs` WHERE user_id=$user";
         // Order by DESC-less or ASC-bigger limit-limits the output!
         $result = mysqli_query($db,$dt) or die( mysqli_error($db));
+        $result1 = mysqli_query($db,$dt1) or die( mysqli_error($db));
+        $result2 = mysqli_query($db,$dt2) or die( mysqli_error($db));
     ?>
         <?php
         while ($row = mysqli_fetch_array($result)) {
           $get = array("id"=>"{$row['id']}");
-          echo "<div id='rows'><h4><a href='#'>{$row['fname']}</a></h4>Created: {$row['created']}</p><br>{$row['lname']}<br><div><hr>";
+          echo "<div id='rows'><h4>{$row['fname']}    {$row['lname']}<br></h4>Registered: {$row['created']}</p><br><br><div><hr>";
+        }
+        ?>
+        <div class="col-lg-8 col-md-12">
+          <h4>Users blogs:</h4><br>
+        </div>
+        <?php
+        while ($row = mysqli_fetch_array($result2)) {
+          $get = array("id"=>"{$row['id']}");
+          $out = http_build_query($get);
+          $url = "blogdetail.php?".$out."";
+          echo "<div id='rows'><h4><a href='$url'>{$row['title']}</a></h4><p id='user'>Created: {$row['created']}</p><br>{$row['body']}<br><div><hr>";
+        }
+        ?>
+        <div class="container">
+          <h4>Users comments:</h4><br>
+        </div>
+        <?php
+        while ($row = mysqli_fetch_array($result1)) {
+          $get = array("id"=>"{$row['post_id']}");
+          $out = http_build_query($get);
+          $url = "blogdetail.php?".$out."";
+          echo "<div id='rows'><h4><a href='$url'>{$row['body']}</a></h4><p id='user'>Created: {$row['posted']}</p><hr>";
         }
         ?>
         </div>

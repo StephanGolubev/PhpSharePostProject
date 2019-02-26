@@ -6,8 +6,57 @@
     <meta charset="utf-8">
     <title>All blogs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/second.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+      #search-data{
+        padding: 10px;
+        border: solid 1px #BDC7D8;
+        margin-bottom: 20px;
+        display: inline;
+        width: 100%;
+      }
+      .search-result{
+        border-bottom:solid 1px #BDC7D8;
+        padding:10px;
+        font-family:Times New Roman;
+        font-size: 20px;
+        color:blue;
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+        $('#search-data').unbind().keyup(function(e) {
+          var value = $(this).val();
+          if (value.length>3) {
+            searchData(value);
+          }
+          else {
+            $('#search-result-container').hide();
+          }
+        }
+                                        );
+      }
+                       );
+      function searchData(val){
+        $('#search-result-container').show();
+        $('#search-result-container').html('<div><img src="../img/preloader.gif" width="50px;" height="50px"> <span style="font-size: 20px;">Please Wait...</span></div>');
+            $.post('controller.php',{
+          'search-data': val}
+               , function(data){
+          if(data != "")
+            $('#search-result-container').html(data);
+          else    
+            $('#search-result-container').html("<div class='search-result'>No Result Found...</div>");
+        }
+              ).fail(function(xhr, ajaxOptions, thrownError) {
+          //any errors?
+          alert(thrownError);
+          //alert with HTTP error
+        }
+                    );
+      }
+    </script>
 
     <style>
     #hello{
@@ -31,6 +80,43 @@
       font-family: Courier New, monospace;
     }
     }
+    .dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 30000px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
@@ -58,13 +144,20 @@
           <a class="nav-link" href="logout.php">Log out</a>
         </li>
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <div class="dropdown" style="margin-top: -19px;">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="button" >Search result</button>
+  <div class="dropdown-content">
+    <div id="search-result-container" style="border:solid 1px #BDC7D8;display:none; "></div>
+  </div>
+</div>
+      <div class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-1" type="text" id="search-data" name="searchData" placeholder="Search By Post Title (word length should be greater than 3) ..." autocomplete="off" aria-label="Search">
+      </div>
+      
+      </div>
     </div>
   </nav>
-</header>
+</header><br><br><br><br><br><br><br>
 
 
 <main role="main" class="flex-shrink-0">
@@ -119,7 +212,6 @@
   </div>
 </footer>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </html>
